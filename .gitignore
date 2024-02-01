@@ -1,3 +1,4 @@
 /tycoon/db.sqlite3
 /.env
 /tycoon/media/
+.idea
