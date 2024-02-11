@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+import autoslug
+
 from .utils import generate_identifier
 
 from users.models import CustomUser
@@ -16,7 +18,7 @@ class Exercise(models.Model):
     attempts = models.IntegerField(verbose_name='Количество попыток', default=1)
     attachment = models.FileField(verbose_name='Приложение', upload_to="uploads/%Y/%m/%d/", blank=True, null=True)
     date_created = models.DateTimeField(verbose_name='Дата создания', default=timezone.now)
-    slug = models.SlugField(verbose_name='URL', max_length=255, unique=True, db_index=True)
+    slug = autoslug.AutoSlugField(verbose_name='URL', max_length=255, unique=True, db_index=True, populate_from=title)
     identifier = models.CharField(verbose_name='Идентификатор', unique=True, db_index=True,
                                   default=generate_identifier, max_length=7)
     creator = models.ForeignKey(CustomUser, verbose_name='Создатель', on_delete=models.CASCADE)
