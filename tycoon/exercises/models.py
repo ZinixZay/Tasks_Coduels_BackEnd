@@ -21,6 +21,14 @@ class Exercise(models.Model):
                                   default=generate_identifier, max_length=7)
     creator = models.ForeignKey(CustomUser, verbose_name='Создатель', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.title + self.identifier)
+
+    class Meta:
+        verbose_name = 'Упражнение'
+        verbose_name_plural = 'Упражнения'
+        ordering = ['date_created']
+
 
 class Question(models.Model):
     QUESTION_TYPES = {
@@ -36,9 +44,24 @@ class Question(models.Model):
     content = models.JSONField(verbose_name='Контент')
     exercise = models.ForeignKey(Exercise, verbose_name='Задание', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.exercise.title + self.label)
+
+    class Meta:
+        verbose_name = 'Вопрос'
+        verbose_name_plural = 'Вопросы'
+        ordering = ['exercise']
+
 
 class Answer(models.Model):
     content = models.JSONField(verbose_name='Контент')
     user = models.ForeignKey(CustomUser, verbose_name='Отвечающий', on_delete=models.CASCADE)
     question = models.ForeignKey(Question, verbose_name='Вопрос', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.user.email + self.question.label + self.question.exercise.title)
+
+    class Meta:
+        verbose_name = 'Ответ'
+        verbose_name_plural = 'Ответы'
+        ordering = ['user', 'question']
