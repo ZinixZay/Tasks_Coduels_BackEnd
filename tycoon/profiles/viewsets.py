@@ -15,4 +15,11 @@ class TasksProfileViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
+        TasksProfile.objects.create(
+            first_name=request.data['first_name'],
+            last_name=request.data['last_name'],
+            middle_name=request.data['middle_name'],
+            backup_email=request.data['backup_email'],
+            user=request.user
+        )
         return Response('meow', status=status.HTTP_200_OK)

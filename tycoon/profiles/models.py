@@ -12,7 +12,8 @@ class TasksProfile(models.Model):
     backup_email = models.EmailField(verbose_name='Резервная почта', blank=True)
     avatar = models.ImageField(verbose_name='Фото', upload_to='avatars/%Y/%m/%d/', blank=True)
     user = models.ForeignKey(CustomUser, verbose_name='Пользователь', on_delete=models.CASCADE)
-    slug = autoslug.AutoSlugField(verbose_name='URL', max_length=255, unique=True, db_index=True)
+    slug = autoslug.AutoSlugField(verbose_name='URL', max_length=255, unique=True,
+                                  db_index=True, populate_from='last_name')
 
     def __str__(self):
         return str(self.user.email + self.last_name + self.first_name)
