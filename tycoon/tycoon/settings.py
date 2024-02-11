@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'profiles.apps.ProfilesConfig',
     'exercises.apps.ExercisesConfig',
+    'rest_framework',
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"

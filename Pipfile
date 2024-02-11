@@ -7,7 +7,7 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 pillow = "*"
-transliterate = "*"
+django-autoslug = "*"
 
 [dev-packages]
 
