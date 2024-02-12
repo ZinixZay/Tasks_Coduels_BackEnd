@@ -5,9 +5,14 @@ import autoslug
 
 
 class TasksProfile(models.Model):
+    STATUSES = {
+        'teacher': 'Преподаватель',
+        'student': 'Ученик'
+    }
     first_name = models.CharField(verbose_name='Имя', max_length=31, blank=True)
     last_name = models.CharField(verbose_name='Фамилия', max_length=31, blank=True)
     middle_name = models.CharField(verbose_name='Отчество', max_length=31, blank=True)
+    status = models.CharField(verbose_name='Статус', max_length=15, choices=STATUSES, default='student')
     backup_email = models.EmailField(verbose_name='Резервная почта', blank=True)
     avatar = models.ImageField(verbose_name='Фото', upload_to='avatars/%Y/%m/%d/', blank=True)
     user = models.ForeignKey(CustomUser, verbose_name='Пользователь', on_delete=models.CASCADE)
