@@ -14,13 +14,27 @@ class TasksProfile(models.Model):
     middle_name = models.CharField(verbose_name='Отчество', max_length=31, blank=True)
     status = models.CharField(verbose_name='Статус', max_length=15, choices=STATUSES, default='student')
     backup_email = models.EmailField(verbose_name='Резервная почта', blank=True)
-    avatar = models.ImageField(verbose_name='Фото', upload_to='avatars/%Y/%m/%d/', blank=True)
+    avatar = models.ImageField(verbose_name='Фото', upload_to='avatars/%Y/%m/%d/',
+                               default='avatars/default/default.png')
     user = models.ForeignKey(CustomUser, verbose_name='Пользователь', on_delete=models.CASCADE)
     slug = autoslug.AutoSlugField(verbose_name='URL', max_length=255, unique=True,
                                   db_index=True, populate_from='last_name')
 
     def __str__(self):
         return str(self.user.email + self.last_name + self.first_name)
+
+    def to_dict(self):
+        return {
+            "id": self.pk,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "middle_name": self.middle_name,
+            "status": self.status,
+            "backup_email": self.backup_email,
+            "avatar": str(self.avatar),
+            "user": str(self.user),
+            "slug": self.slug
+        }
 
     class Meta:
         verbose_name = 'Профиль(Задания)'

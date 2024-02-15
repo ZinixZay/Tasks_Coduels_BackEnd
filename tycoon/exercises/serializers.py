@@ -12,10 +12,10 @@ class ExerciseSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('exercise', 'label', 'term', 'question_type', 'content')
+        fields = ('id', 'exercise', 'label', 'term', 'question_type', 'content')
 
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = ('user', 'question', 'content')
+        fields = ('id', 'user', 'question', 'content')
