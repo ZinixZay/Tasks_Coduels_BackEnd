@@ -10,6 +10,7 @@ pillow = "*"
 django-autoslug = "*"
 pytz = "*"
 tzdata = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
